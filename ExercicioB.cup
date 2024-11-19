@@ -1,0 +1,106 @@
+import java_cup.runtime.Symbol;
+
+parser code {:
+  public static void main(String[] args) throws Exception {
+    Yylex lexer = new Yylex(System.in);
+    parser p = new parser(lexer);
+    p.parse();
+  }
+:};
+
+terminal int INTEGER;
+terminal double DOUBLE;
+terminal String IDENTIFIER;
+terminal String LITERAL;
+terminal void VOID;
+terminal if IF;
+terminal else ELSE;
+terminal while WHILE;
+terminal return RETURN;
+terminal semicolon SEMICOLON;
+terminal comma COMMA;
+terminal lparen LPAREN;
+terminal rparen RPAREN;
+terminal lbrace LBRACE;
+terminal rbrace RBRACE;
+terminal assign ASSIGN;
+terminal plus PLUS;
+terminal minus MINUS;
+terminal times TIMES;
+terminal divide DIVIDE;
+terminal eq EQ;
+terminal neq NEQ;
+terminal lt LT;
+terminal gt GT;
+terminal lte LTE;
+terminal gte GTE;
+
+non terminal Program program;
+non terminal DeclList declList;
+non terminal Decl decl;
+non terminal VarDecl varDecl;
+non terminal FunDecl funDecl;
+non terminal Type type;
+non terminal ParamList paramList;
+non terminal Param param;
+non terminal Block block;
+non terminal StmtList stmtList;
+non terminal Stmt stmt;
+non terminal Expr expr;
+non terminal SimpleExpr simpleExpr;
+non terminal Term term;
+non terminal Factor factor;
+non terminal Condition condition;
+
+/* Grammar rules */
+program ::= declList;
+
+declList ::= declList decl
+           | decl;
+
+decl ::= varDecl
+       | funDecl;
+
+varDecl ::= type IDENTIFIER SEMICOLON;
+
+funDecl ::= type IDENTIFIER LPAREN paramList RPAREN block;
+
+type ::= INT
+       | DOUBLE
+       | VOID;
+
+paramList ::= paramList COMMA param
+            | param
+            | /* empty */;
+
+param ::= type IDENTIFIER;
+
+block ::= LBRACE stmtList RBRACE;
+
+stmtList ::= stmtList stmt
+           | stmt
+           | /* empty */;
+
+stmt ::= varDecl
+       | expr SEMICOLON
+       | block
+       | IF LPAREN condition RPAREN stmt ELSE stmt
+       | IF LPAREN condition RPAREN stmt
+       | WHILE LPAREN condition RPAREN stmt
+       | RETURN expr SEMICOLON;
+
+condition ::= expr (EQ | NEQ | LT | LTE | GT | GTE) expr;
+
+expr ::= expr PLUS term
+       | expr MINUS term
+       | term;
+
+term ::= term TIMES factor
+       | term DIVIDE factor
+       | factor;
+
+factor ::= IDENTIFIER
+         | INTEGER
+         | DOUBLE
+         | LITERAL
+         | LPAREN expr RPAREN;

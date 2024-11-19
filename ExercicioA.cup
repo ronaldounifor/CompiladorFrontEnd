@@ -1,0 +1,13 @@
+import java_cup.runtime.*;
+terminal PV, MAIS, MENOS, INTEIRO;
+terminal String IDENT;
+non terminal expr_list, expr_pv, expr;
+
+expr_list ::= expr_list expr_pv
+            | expr_pv;
+
+expr_pv ::= expr PV;
+
+expr ::= INTEIRO MAIS expr
+        | INTEIRO MENOS expr
+        | INTEIRO;
