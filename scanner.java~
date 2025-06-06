@@ -62,8 +62,8 @@ class scanner implements java_cup.runtime.Scanner {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\2\1\2\2\1\1\22\0\1\1\7\0\1\3"+
-    "\1\4\1\5\1\6\1\0\1\7\2\0\12\10\1\0"+
-    "\1\11\111\0\1\2\u01a2\0\2\2\326\0\u0100\2";
+    "\1\4\1\5\1\6\1\0\1\7\1\0\1\10\12\11"+
+    "\1\0\1\12\111\0\1\2\u01a2\0\2\2\326\0\u0100\2";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -91,10 +91,10 @@ class scanner implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\1\10\1\11";
+    "\1\10\1\11\1\12";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[10];
+    int [] result = new int[11];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -119,11 +119,11 @@ class scanner implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\12\0\24\0\12\0\12\0\12\0\12\0\12"+
-    "\0\36\0\12";
+    "\0\0\0\13\0\26\0\13\0\13\0\13\0\13\0\13"+
+    "\0\13\0\41\0\13";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[10];
+    int [] result = new int[11];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -147,10 +147,10 @@ class scanner implements java_cup.runtime.Scanner {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\1\3\1\0\1\4\1\5\1\6\1\7\1\10"+
-    "\1\11\1\12\13\0\1\3\20\0\1\11\1\0";
+    "\1\11\1\12\1\13\14\0\1\3\22\0\1\12\1\0";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[40];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -193,10 +193,10 @@ class scanner implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\5\11\1\1\1\11";
+    "\1\0\1\11\1\1\6\11\1\1\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[10];
+    int [] result = new int[11];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -645,47 +645,52 @@ class scanner implements java_cup.runtime.Scanner {
             { System.err.println("Illegal character: " + yytext());
             }
           // fall through
-          case 10: break;
+          case 11: break;
           case 2:
             { /**/
             }
           // fall through
-          case 11: break;
+          case 12: break;
           case 3:
             { return new Symbol(sym.LPAREN);
             }
           // fall through
-          case 12: break;
+          case 13: break;
           case 4:
             { return new Symbol(sym.RPAREN);
             }
           // fall through
-          case 13: break;
+          case 14: break;
           case 5:
             { return new Symbol(sym.TIMES);
             }
           // fall through
-          case 14: break;
+          case 15: break;
           case 6:
             { return new Symbol(sym.PLUS);
             }
           // fall through
-          case 15: break;
+          case 16: break;
           case 7:
             { return new Symbol(sym.MINUS);
             }
           // fall through
-          case 16: break;
-          case 8:
-            { return new Symbol(sym.NUMBER, Integer.parseInt(yytext()));
-            }
-          // fall through
           case 17: break;
-          case 9:
-            { return new Symbol(sym.SEMI);
+          case 8:
+            { return new Symbol(sym.DIVISION);
             }
           // fall through
           case 18: break;
+          case 9:
+            { return new Symbol(sym.NUMBER, Double.parseDouble(yytext()));
+            }
+          // fall through
+          case 19: break;
+          case 10:
+            { return new Symbol(sym.SEMI);
+            }
+          // fall through
+          case 20: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

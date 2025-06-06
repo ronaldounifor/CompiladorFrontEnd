@@ -8,15 +8,14 @@ parser code {:
 
 scan with {: return s.next_token(); :};
 
-terminal            SEMI, PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
-terminal Integer    NUMBER;
+terminal            SEMI, PLUS, MINUS, TIMES, LPAREN, RPAREN, DIVISION;
+terminal Double     NUMBER;
 
 non terminal            expr_list;
-non terminal Integer    expr;
+non terminal Double     expr;
 
 precedence left PLUS, MINUS;
-precedence left TIMES;
-precedence left UMINUS;
+precedence left TIMES, DIVISION;
 
 expr_list ::= expr_list expr:e SEMI         {: System.out.println(e);:}
             | expr:e SEMI                   {: System.out.println(e);:}
@@ -24,8 +23,8 @@ expr_list ::= expr_list expr:e SEMI         {: System.out.println(e);:}
 expr      ::= expr:e1 PLUS  expr:e2         {: RESULT = e1+e2;       :}
              | expr:e1 MINUS expr:e2        {: RESULT = e1-e2;       :}
              | expr:e1 TIMES expr:e2        {: RESULT = e1*e2;       :}
-             | MINUS expr:e                 {: RESULT = -e;          :}
-  	     %prec UMINUS
-       | LPAREN expr:e RPAREN	         {: RESULT = e;           :}
-       | NUMBER:n	                     {: RESULT = n;           :}
+             | expr:e1 DIVISION expr:e2     {: RESULT = e1/e2;       :}
+             | MINUS expr:e                 {: RESULT = -e;          :} 
+             | LPAREN expr:e RPAREN	        {: RESULT = e;           :}
+             | NUMBER:n	                    {: RESULT = n;           :}
              ;
